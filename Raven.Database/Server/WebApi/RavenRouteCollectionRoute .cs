@@ -3,11 +3,13 @@
 //      Copyright (c) Hibernating Rhinos LTD. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Caching;
 using System.Web.Http.Routing;
 
 namespace Raven.Database.Server.WebApi
@@ -20,6 +22,8 @@ namespace Raven.Database.Server.WebApi
 
 		private readonly IReadOnlyCollection<IHttpRoute> subRoutes;
 
+		private readonly MemoryCache _routeCache = new MemoryCache("ravendb.routes.cache");
+
 		public RavenRouteCollectionRoute(IReadOnlyCollection<IHttpRoute> subRoutes)
 		{
 			this.subRoutes = subRoutes;
@@ -27,12 +31,24 @@ namespace Raven.Database.Server.WebApi
 
 		public IHttpRouteData GetRouteData(string virtualPathRoot, HttpRequestMessage request)
 		{
+			var cacheItem = _routeCache.GetCacheItem(request.RequestUri.LocalPath);
+			if (cacheItem != null)
+				return (IHttpRouteData)cacheItem.Value;
+
 			var matches = subRoutes
 				.Select(route => route.GetRouteData(virtualPathRoot, request))
 				.Where(match => match != null)
 				.ToArray();
 
-			return matches.Length == 0 ? null : new RavenRouteCollectionRouteData(this, matches);
+			var result = matches.Length == 0 ? null : new RavenRouteCollectionRouteData(this, matches);
+			if (result != null)
+			{
+				_routeCache.Set(request.RequestUri.LocalPath, result, new CacheItemPolicy
+				{
+					SlidingExpiration = TimeSpan.FromSeconds(30)
+				});
+			}
+			return result;
 		}
 
 		public IHttpVirtualPathData GetVirtualPath(HttpRequestMessage request, IDictionary<string, object> values)
