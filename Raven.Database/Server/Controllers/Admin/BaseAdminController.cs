@@ -52,7 +52,7 @@ namespace Raven.Database.Server.Controllers.Admin
                 }, HttpStatusCode.Unauthorized);
 
             if (user.IsAdministrator(DatabasesLandlord.SystemConfiguration.AnonymousUserAccessMode) == false &&
-            user.IsAdministrator(Database) == false && SupportedByAnyAdditionalRoles(user) == false)
+            user.IsAdministrator(Database.Name ?? Constants.SystemDatabase) == false && SupportedByAnyAdditionalRoles(user) == false)
             {
                 return GetMessageWithObject(new
                 {

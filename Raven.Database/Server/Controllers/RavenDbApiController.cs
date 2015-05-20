@@ -696,7 +696,7 @@ namespace Raven.Database.Server.Controllers
 									windowsPrincipal.IsAdministrator(DatabasesLandlord.SystemConfiguration.AnonymousUserAccessMode)
 				};
 
-				windowsUser.IsAdminCurrentDb = windowsUser.IsAdminGlobal || windowsPrincipal.IsAdministrator(Database);
+                windowsUser.IsAdminCurrentDb = windowsUser.IsAdminGlobal || windowsPrincipal.IsAdministrator(Database.Name ?? Constants.SystemDatabase);
 
 				return windowsUser;
 			}
@@ -711,7 +711,7 @@ namespace Raven.Database.Server.Controllers
 					IsAdminGlobal = principalWithDatabaseAccess.IsAdministrator("<system>") || 
 						principalWithDatabaseAccess.IsAdministrator(
 							DatabasesLandlord.SystemConfiguration.AnonymousUserAccessMode),
-					IsAdminCurrentDb = principalWithDatabaseAccess.IsAdministrator(Database),
+                    IsAdminCurrentDb = principalWithDatabaseAccess.IsAdministrator(Database.Name ?? Constants.SystemDatabase),
 					Databases =
 						principalWithDatabaseAccess.AdminDatabases.Concat(
 							principalWithDatabaseAccess.ReadOnlyDatabases)
@@ -726,7 +726,7 @@ namespace Raven.Database.Server.Controllers
 					ReadWriteDatabases = principalWithDatabaseAccess.ReadWriteDatabases
 				};
 
-				windowsUserWithDatabase.IsAdminCurrentDb = windowsUserWithDatabase.IsAdminGlobal || principalWithDatabaseAccess.IsAdministrator(Database);
+                windowsUserWithDatabase.IsAdminCurrentDb = windowsUserWithDatabase.IsAdminGlobal || principalWithDatabaseAccess.IsAdministrator(Database.Name ?? Constants.SystemDatabase);
 
 				return windowsUserWithDatabase;
 			}
@@ -739,7 +739,7 @@ namespace Raven.Database.Server.Controllers
 					Remark = "Using OAuth",
 					User = oAuthPrincipal.Name,
 					IsAdminGlobal = oAuthPrincipal.IsAdministrator(DatabasesLandlord.SystemConfiguration.AnonymousUserAccessMode),
-					IsAdminCurrentDb = oAuthPrincipal.IsAdministrator(Database),
+                    IsAdminCurrentDb = oAuthPrincipal.IsAdministrator(Database.Name ?? Constants.SystemDatabase),
 					Databases = oAuthPrincipal.TokenBody.AuthorizedDatabases
 											  .Select(db => new DatabaseInfo
 											  {

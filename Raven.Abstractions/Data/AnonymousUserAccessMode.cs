@@ -3,7 +3,7 @@
 //     Copyright (c) Hibernating Rhinos LTD. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Raven.Database.Server
+namespace Raven.Abstractions.Data
 {
 	public enum AnonymousUserAccessMode
 	{

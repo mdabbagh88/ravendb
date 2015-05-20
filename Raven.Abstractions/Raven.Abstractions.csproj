@@ -149,6 +149,7 @@
     <Compile Include="Counters\CounterView.cs" />
     <Compile Include="Data\AccessTokenBody.cs" />
     <Compile Include="Data\AbstractRestoreRequest.cs" />
+    <Compile Include="Data\AnonymousUserAccessMode.cs" />
     <Compile Include="Data\BulkOperationOptions.cs" />
     <Compile Include="Data\CompactStatus.cs" />
     <Compile Include="Data\DatabaseOperationsStatus.cs" />
@@ -176,8 +177,10 @@
     <Compile Include="Data\IndexFailureInformation.cs" />
     <Compile Include="Data\IOperationState.cs" />
     <Compile Include="Data\MoreLikeThisQueryResult.cs" />
+    <Compile Include="Data\OAuthPrincipal.cs" />
     <Compile Include="Data\PeriodicBackupSetup.cs" />
     <Compile Include="Data\PrefetchingUser.cs" />
+    <Compile Include="Data\PrincipalWithDatabaseAccess.cs" />
     <Compile Include="Data\QueryHeaderInformation.cs" />
     <Compile Include="Data\ReduceType.cs" />
     <Compile Include="Data\ReducingBatchInfo.cs" />

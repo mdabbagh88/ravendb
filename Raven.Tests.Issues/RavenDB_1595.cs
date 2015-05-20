@@ -54,7 +54,7 @@ namespace Raven.Tests.Issues
 
             var serverConfiguration = new Database.Config.RavenConfiguration
             {
-                AnonymousUserAccessMode = Database.Server.AnonymousUserAccessMode.Admin,
+                AnonymousUserAccessMode = AnonymousUserAccessMode.Admin,
                 DataDirectory = dataDirectory,
                 RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
                 RunInMemory = false,

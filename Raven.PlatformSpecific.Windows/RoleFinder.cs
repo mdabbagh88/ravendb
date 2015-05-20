@@ -9,8 +9,6 @@ using System.Threading;
 using Raven.Abstractions;
 using Raven.Abstractions.Data;
 using Raven.Abstractions.Logging;
-using Raven.Database.Server;
-using Raven.Database.Server.Abstractions;
 
 namespace Raven.Database.Extensions
 {
@@ -213,11 +211,6 @@ namespace Raven.Database.Extensions
 			}
 		}
 
-		public static bool IsAdministrator(this IPrincipal principal, DocumentDatabase database)
-		{
-			var name = database.Name ?? "<system>";
-			return IsAdministrator(principal, name);
-		}
 
 		public static bool IsAdministrator(this IPrincipal principal, string databaseName)
 		{

@@ -10,6 +10,7 @@ using Raven.Tests.Common;
 
 using Xunit;
 using System.Linq;
+using Raven.Abstractions.Data;
 
 namespace Raven.Tests.Bugs
 {

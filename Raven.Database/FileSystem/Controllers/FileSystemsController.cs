@@ -73,7 +73,7 @@ namespace Raven.Database.FileSystem.Controllers
 					if (principalWithDatabaseAccess != null)
 					{
 						var isAdminGlobal = principalWithDatabaseAccess.IsAdministrator(SystemConfiguration.AnonymousUserAccessMode);
-						x.IsAdminCurrentTenant = isAdminGlobal || principalWithDatabaseAccess.IsAdministrator(Database);
+                        x.IsAdminCurrentTenant = isAdminGlobal || principalWithDatabaseAccess.IsAdministrator(Database.Name ?? Constants.SystemDatabase);
 					}
 					else
 					{

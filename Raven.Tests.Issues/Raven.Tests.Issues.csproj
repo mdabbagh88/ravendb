@@ -486,6 +486,10 @@
       <Project>{e6c2eaa5-b5bc-4be2-b981-0064e819dbeb}</Project>
       <Name>Raven.Migration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Raven.PlatformSpecific.Windows\Raven.PlatformSpecific.Windows.csproj">
+      <Project>{626a3d82-77db-4010-906e-b7f88602abac}</Project>
+      <Name>Raven.PlatformSpecific.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Raven.Smuggler\Raven.Smuggler.csproj">
       <Project>{3e6401ac-3e33-4b61-a460-49953654a207}</Project>
       <Name>Raven.Smuggler</Name>

@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Raven.Database.Config;
 using System.Linq;
+using Raven.Abstractions.Data;
 
 namespace Raven.Database.Server.Security.Windows
 {

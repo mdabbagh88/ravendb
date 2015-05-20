@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Raven.Abstractions.Data;
 using Raven.Database.Extensions;
 using Raven.Database.Server.Security;
 using Raven.Database.Server.WebApi.Attributes;

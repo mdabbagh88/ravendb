@@ -64,7 +64,7 @@ namespace Raven.Tests.Issues
             public override VetoResult AllowPut(string key, RavenJObject document, RavenJObject metadata, TransactionInformation transactionInformation)
             {
                 var principal = CurrentOperationContext.User.Value;
-                var isAdmin = principal.IsAdministrator(Database.Configuration.AnonymousUserAccessMode) || principal.IsAdministrator(Database);
+                var isAdmin = principal.IsAdministrator(Database.Configuration.AnonymousUserAccessMode) || principal.IsAdministrator(Database.Name ?? Constants.SystemDatabase);
                 return isAdmin ? VetoResult.Allowed : VetoResult.Deny("Only admin may put document into the database");
             }
         }

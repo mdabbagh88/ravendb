@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Security.Principal;
 
-namespace Raven.Database.Server.Abstractions
+namespace Raven.Abstractions.Data
 {
-	internal class PrincipalWithDatabaseAccess : IPrincipal
+    public class PrincipalWithDatabaseAccess : IPrincipal
 	{
 		public readonly WindowsPrincipal Principal;
 
