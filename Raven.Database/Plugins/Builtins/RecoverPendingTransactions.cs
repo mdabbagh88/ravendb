@@ -31,11 +31,21 @@ namespace Raven.Database.Plugins.Builtins
                     {
                         var ravenJToken = item.Data["Changes"];
                         var changes = ravenJToken.JsonDeserialization<List<DocumentInTransactionData>>();
+                        if (changes == null)
+                            continue;
                         var resourceManagerId = item.Data.Value<string>("ResourceManagerId");
                         var recoveryInformation = item.Data.Value<byte[]>("RecoveryInformation");
-
-                        database.InFlightTransactionalState.RecoverTransaction(transactionId, changes);
-                   
+                        try
+                        {
+                            database.InFlightTransactionalState.RecoverTransaction(transactionId, changes);
+                        }
+                        catch (Exception e)
+                        {
+                            logger.WarnException(
+                                 "Failed to recover transaction " + transactionId +
+                                 " on database restart, transaction was aborted", e);
+                            continue;
+                        }
                         Guid resourceId;
                         if (Guid.TryParse(resourceManagerId, out resourceId) == false || 
                             recoveryInformation == null)
